@@ -1,6 +1,8 @@
 <?php
 namespace App\Livewire\Tools;
 
+use Closure;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class CompanyGenerator extends Component
@@ -377,4 +379,12 @@ class CompanyGenerator extends Component
     {
         return view('livewire.tools.company-generator');
     }
+
+    public function validates(string $attribute, mixed $value, Closure $fail): void
+    {
+        if (! Str::endsWith($value, '.zip')) {
+            $fail('The given value must be a path to a zip file.');
+        }
+    }
+
 }
