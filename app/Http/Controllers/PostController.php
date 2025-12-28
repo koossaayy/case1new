@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -83,4 +85,12 @@ class PostController extends Controller
             'msg2' => $msg2,
         ]);
     }
+
+    public function validates(string $attribute, mixed $value, Closure $fail): void
+    {
+        if (! Str::endsWith($value, '.zip')) {
+            $fail('The given value must be a path to a zip file.');
+        }
+    }
+
 }
